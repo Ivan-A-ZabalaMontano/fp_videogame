@@ -20,7 +20,7 @@ public class BottomDead : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Collision detected");
+        //Debug.Log("Collision detected");
         if(activateTrigger)
         {
             GameObject other= collider.gameObject;

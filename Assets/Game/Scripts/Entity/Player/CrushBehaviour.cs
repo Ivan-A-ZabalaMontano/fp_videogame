@@ -37,7 +37,7 @@ public class CrushBehaviour : MonoBehaviour
     {
         if(feetCol && headCol)
         {
-            Debug.Log("Player crushed");
+            //Debug.Log("Player crushed");
             Player player=GetComponentInParent<Player>();
             player.gotHit(10000);
         }

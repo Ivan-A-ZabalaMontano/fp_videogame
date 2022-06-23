@@ -171,6 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 91829201}
   scoreText: {fileID: 1986038840}
+  score: 0
 --- !u!114 &54936812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2278,7 +2279,7 @@ MonoBehaviour:
   - {fileID: 3333674324704644954, guid: 17558927de78a69469b88a14f65d53fa, type: 3}
   - {fileID: 4679828704806332159, guid: 7997033ad44cd1b41ba653efceef2442, type: 3}
   - {fileID: 8284532488176249391, guid: 79eb0aab12438414290197dc568443bd, type: 3}
-  respawnTime: 2
+  respawnTime: 5
   spawnPositionsX: []
 --- !u!4 &767799560
 Transform:
@@ -7891,6 +7892,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a40182cda2b5f4f90f53e667f991a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rowPrefab: {fileID: 0}
+  rowsParent: {fileID: 0}
 --- !u!1 &1789123182
 GameObject:
   m_ObjectHideFlags: 0

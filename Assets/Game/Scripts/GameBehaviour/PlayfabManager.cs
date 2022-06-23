@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
+using Newtonsoft.Json;
+using UnityEngine.UI;
 
 public class PlayfabManager : MonoBehaviour
 {
+    public GameObject rowPrefab;
+    public Transform rowsParent;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +35,7 @@ public class PlayfabManager : MonoBehaviour
         var request = new UpdatePlayerStatisticsRequest{
             Statistics = new List<StatisticUpdate>{
                 new StatisticUpdate{
-                    StatisticName = "PlatformScore",
+                    StatisticName = "Score",
                     Value = score
                 }
             }
@@ -43,16 +47,32 @@ public class PlayfabManager : MonoBehaviour
     }
     public void GetLeaderboard(){
         var request = new GetLeaderboardRequest{
-            StatisticName="PlataformScore",
+            StatisticName="Score",
             StartPosition=0,
             MaxResultsCount=10
         };
+        Debug.Log("los resultadajos los jalas exitosamente, como tu pija");
         PlayFabClientAPI.GetLeaderboard(request,OnLeaderboardGet,OnError);
     }
     void OnLeaderboardGet(GetLeaderboardResult result){
+        foreach (Transform item in rowsParent){
+            Destroy(item.gameObject);
+        }
         foreach (var item in result.Leaderboard)
         {
-            Debug.Log(item.Position + " " + item.PlayFabId + " " + item.StatValue);
+            GameObject newGo = Instantiate(rowPrefab,rowsParent);
+            Text[] texts = newGo.GetComponentsInChildren<Text>();
+            texts[0].text = (item.Position + 1 ).ToString();
+            texts[1].text = item.PlayFabId; 
+            texts[2].text = item.StatValue.ToString();
         }
     }
+    #region Leaderboard
+    /*public void getLeaderboard1(){
+        var requestLeaderboard = new GetLeaderboardRequest{
+            StartPosition=0,
+            StatisticName="PlayerHighscore";
+        }
+    }*/
+    #endregion Leaderboard
 }

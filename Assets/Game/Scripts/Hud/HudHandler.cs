@@ -11,11 +11,12 @@ public class HudHandler : MonoBehaviour
 
     [SerializeField] Text scoreText;
 
-    private int score = 0;
+    public int score = 0;
 
     private GameOverScreen gameOverScreen;
     private Player player;
     private GameObject playerObject;
+    private bool playfab=true;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +59,13 @@ public class HudHandler : MonoBehaviour
         if (player.getIsDead())
         {
             gameOverScreen.Setup(score);
+            if(playfab){
+                PlayfabManager playfabManager = GameObject.Find("Main Camera").GetComponent<PlayfabManager>();
+                playfabManager.SendLeaderboard(score);
+                playfab=false;
+            }
         }
+        
     }
 
     public void addScore(int score)

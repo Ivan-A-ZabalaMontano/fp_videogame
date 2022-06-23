@@ -632,7 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameScene: GameScene
-  skinScene: 
+  skinScene: SkinScene
   play: {fileID: 140678193}
   skin: {fileID: 1399430447}
   exit: {fileID: 1809580498}
