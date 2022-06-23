@@ -24,14 +24,14 @@ public class Spawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,Camera.main.transform.position.z));
     }
     private IEnumerator blockSpawn(float interval,GameObject[] block){
         int n  = Random.Range(0, 4);
         int m  = Random.Range(0, 10);
         float SpawnPositionSet = spawnPositionsX[m];
         yield return new WaitForSeconds(interval);
-        GameObject newBlock = Instantiate(block[n], new Vector3(SpawnPositionSet,(screenBounds.y)+2.5f,0),Quaternion.identity);
+        GameObject newBlock = Instantiate(block[n], new Vector3(SpawnPositionSet,(screenBounds.y)+5f,0),Quaternion.identity);
         StartCoroutine(blockSpawn(interval,block));
     }
 }

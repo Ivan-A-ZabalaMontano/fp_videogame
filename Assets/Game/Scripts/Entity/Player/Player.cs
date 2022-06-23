@@ -9,11 +9,13 @@ public class Player : Entity
      WeaponBehaviour weaponBehaviour;
      private bool isJumping=false;
      private bool isDashing=false;
-     private bool isAttacking=false;
-
+     public  bool isDead=false;
+ 
+    private BoxCollider2D body;
     // Start is called before the first frame update
     void Start()
     {
+        body= GetComponentInChildren<BoxCollider2D>();
         pmovement=gameObject.GetComponent<PlayerMovement2D>();
         weaponBehaviour=gameObject.GetComponentInChildren<WeaponBehaviour>();
     }
@@ -27,7 +29,6 @@ public class Player : Entity
       }
       if(Input.GetButtonDown("Fire1"))
       {
-        isAttacking=true;
         weaponBehaviour.attack();
       }
       if(Input.GetButtonDown("Fire2"))
@@ -39,6 +40,7 @@ public class Player : Entity
     void FixedUpdate()
     {
         movement();
+        die();
     }
     //Getters && Setters
 
@@ -51,5 +53,24 @@ public class Player : Entity
             pmovement.move(horizontal,isJumping,ref isDashing);
             isJumping=false;
         }
+    public void gotHit(int dmg)
+    {
+        health-=dmg;
+    }
+    public void die()
+    {
+        if(health<=0)
+        {
+            isDead=true;
+            
+          
+                Destroy(body);
+          
+        }
+    }
 
+    public bool getIsDead()
+    {
+        return this.isDead;
+    }
 }

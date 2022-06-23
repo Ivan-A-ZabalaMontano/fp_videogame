@@ -26,7 +26,7 @@ public class BottomDead : MonoBehaviour
             GameObject other= collider.gameObject;
             if(other.tag=="Player")
             {
-                Destroy(other);
+                other.GetComponent<Player>().gotHit(100);
             }
             
         }

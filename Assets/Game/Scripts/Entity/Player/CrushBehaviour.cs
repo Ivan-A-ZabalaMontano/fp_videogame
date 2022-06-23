@@ -29,7 +29,7 @@ public class CrushBehaviour : MonoBehaviour
     }
     void checkCollisions()
     {
-        headCol = Physics2D.OverlapBox(playerHead.position,new Vector2(angle/2,angle/1.5f),angle/2,layer);
+        headCol = Physics2D.OverlapBox(playerHead.position,new Vector2(angle/2,angle),angle/2,layer);
         feetCol = Physics2D.OverlapBox(playerFeet.position,new Vector2(angle/2,angle),angle/2,layer);
 
     }
@@ -38,14 +38,15 @@ public class CrushBehaviour : MonoBehaviour
         if(feetCol && headCol)
         {
             Debug.Log("Player crushed");
-            Destroy(gameObject);
+            Player player=GetComponentInParent<Player>();
+            player.gotHit(10000);
         }
     
     }
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(playerHead.position,new Vector2(angle/2,angle/1.5f));
-        Gizmos.DrawWireCube(playerFeet.position,new Vector2(angle/2,angle/1.5f));
+        Gizmos.DrawWireCube(playerHead.position,new Vector2(angle/2,angle));
+        Gizmos.DrawWireCube(playerFeet.position,new Vector2(angle/2,angle));
     }
 }

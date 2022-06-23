@@ -19,6 +19,7 @@ public class ChildBlockBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         die();
     }
     public void onHit(int damage)
@@ -30,9 +31,9 @@ public class ChildBlockBehaviour : MonoBehaviour
         if (hit.collider != null)
         {
             Debug.Log(hit.collider.gameObject.name);
-            if(hit.collider.gameObject==gameObject)
+            if (hit.collider.gameObject == gameObject)
             {
-                health-=damage;
+                health -= damage;
             }
         }
     }
@@ -40,7 +41,14 @@ public class ChildBlockBehaviour : MonoBehaviour
     {
         if (this.health <= 0)
         {
+            GameObject hud = GameObject.Find("EventSystem");
+            HudHandler handler = hud.GetComponent<HudHandler>();
+
+            handler.addScore(10);
             Destroy(gameObject);
         }
     }
+
+
+
 }
