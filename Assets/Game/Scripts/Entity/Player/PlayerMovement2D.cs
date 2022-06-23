@@ -96,10 +96,7 @@ public class PlayerMovement2D : MonoBehaviour
         onGround = Physics2D.OverlapCircle(overlapObject.position, circleRadius, layer);
         canWallJump = Physics2D.OverlapPoint(new Vector2(overlapObject.position.x + (slideCollisionLenght), overlapObject.position.y+(upperCollisionLenght)));
 
-        if(canWallJump)
-        {
-            Debug.Log("On Wall");
-        }
+
     }
     public void wallJumpCounter()
     {

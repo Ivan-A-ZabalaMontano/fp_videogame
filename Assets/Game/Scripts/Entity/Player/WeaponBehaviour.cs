@@ -8,15 +8,17 @@ public class WeaponBehaviour : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] float attackDelay;
 
+
+
     private float auxAttackDelay;
     void Start()
     {
-        auxAttackDelay=attackDelay;
+        auxAttackDelay = attackDelay;
     }
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
@@ -24,4 +26,6 @@ public class WeaponBehaviour : MonoBehaviour
     {
         weaponAnimator.SetTrigger("Attack");
     }
+
+
 }

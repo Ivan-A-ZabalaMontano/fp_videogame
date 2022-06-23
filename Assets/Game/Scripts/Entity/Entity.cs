@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour
 {
     //Entity Stats
-    protected float  health;
+    [SerializeField]protected int  health;
     [SerializeField]protected float speed;
 
     // Start is called before the first frame update
@@ -20,13 +20,16 @@ public abstract class Entity : MonoBehaviour
         
     }
     //Getters && Setters
-    public float getHealth()
+    public int getHealth()
     {
         return this.health;
     }
-    public void setHealth(float health)
+    public void setHealth(int health)
     {
         this.health=health;
     }
+
+
+
     //Methods
 }
