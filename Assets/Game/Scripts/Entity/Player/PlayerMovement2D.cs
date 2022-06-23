@@ -15,6 +15,8 @@ public class PlayerMovement2D : MonoBehaviour
     [SerializeField] private LayerMask layer; //Layer a la cual se le aplicara la colision
 
     [SerializeField] private float slideCollisionLenght;
+    
+    [SerializeField] private float upperCollisionLenght;
 
     private bool onGround = true;//Booleano para detectar si esta en el suelo
     private bool canWallJump = false;// booleano para detectar si puede 
@@ -23,12 +25,14 @@ public class PlayerMovement2D : MonoBehaviour
     private float wallCounter=0;//Contador para el tiempo en el cual desactivar el estado de wallJump
     private Vector3 currentVelocity = Vector3.zero; 
     private Rigidbody2D rb2D;
+    [SerializeField]private GameObject body;
 
 
     private bool faceRight = true;
     void Awake()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
+      
     }
     void Update()
     {
@@ -90,7 +94,12 @@ public class PlayerMovement2D : MonoBehaviour
     public void checkCollisions()
     {
         onGround = Physics2D.OverlapCircle(overlapObject.position, circleRadius, layer);
-        canWallJump = Physics2D.OverlapPoint(new Vector2(overlapObject.position.x + (slideCollisionLenght), overlapObject.position.y));
+        canWallJump = Physics2D.OverlapPoint(new Vector2(overlapObject.position.x + (slideCollisionLenght), overlapObject.position.y+(upperCollisionLenght)));
+
+        if(canWallJump)
+        {
+            Debug.Log("On Wall");
+        }
     }
     public void wallJumpCounter()
     {
@@ -106,6 +115,9 @@ public class PlayerMovement2D : MonoBehaviour
     }
     public void flip()
     {
+        Vector3 currentScale = body.transform.localScale;
+        currentScale.x *= -1;
+        body.transform.localScale = currentScale;
         faceRight = !faceRight;
         slideCollisionLenght *= -1;
     }
@@ -113,6 +125,6 @@ public class PlayerMovement2D : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(overlapObject.position, circleRadius);
-        Gizmos.DrawLine(overlapObject.position, new Vector2(overlapObject.position.x + (slideCollisionLenght), overlapObject.position.y));
+        Gizmos.DrawLine(overlapObject.position, new Vector2(overlapObject.position.x + (slideCollisionLenght), overlapObject.position.y+(upperCollisionLenght)));
     }
 }
