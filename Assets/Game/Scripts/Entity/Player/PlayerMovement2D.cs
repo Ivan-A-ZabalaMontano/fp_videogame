@@ -10,16 +10,16 @@ public class PlayerMovement2D : MonoBehaviour
     [SerializeField] private float movementSmoothing = .02f; //Cantidad para suavizar el movimiento
 
     //Collision Detection
-    [SerializeField] private Transform overlapObject; //Objecto sobre el cual generar  la colision
+     [SerializeField] private float size;
+    [SerializeField] private Transform groundDetection; //Objecto sobre el cual generar  la colision
+    [SerializeField] private Transform wallDetection;
+  
     [SerializeField] private float circleRadius;  //Radio de colision
     [SerializeField] private LayerMask layer; //Layer a la cual se le aplicara la colision
 
-    [SerializeField] private float slideCollisionLenght;
-    
-    [SerializeField] private float upperCollisionLenght;
 
     private bool onGround = true;//Booleano para detectar si esta en el suelo
-    private bool canWallJump = false;// booleano para detectar si puede 
+    private bool onWall = false;// booleano para detectar si puede 
     private  bool wallJump=false;// booleano para saber si el jugador utilizo el walljump
 
     private float wallCounter=0;//Contador para el tiempo en el cual desactivar el estado de wallJump
@@ -44,9 +44,8 @@ public class PlayerMovement2D : MonoBehaviour
     public void move(float movementDir, bool air,ref bool  isDashing)
     {
         dash(ref isDashing);
-        if (canWallJump && !onGround)
+        if (onWall && !onGround)
         {
-            Debug.Log("Can Walljump");
             if (air && movementDir!=0)
             {
                 rb2D.AddForce(new Vector2(-movementDir*wallForce, jumpForce), ForceMode2D.Impulse);
@@ -93,10 +92,8 @@ public class PlayerMovement2D : MonoBehaviour
     }
     public void checkCollisions()
     {
-        onGround = Physics2D.OverlapCircle(overlapObject.position, circleRadius, layer);
-        canWallJump = Physics2D.OverlapPoint(new Vector2(overlapObject.position.x + (slideCollisionLenght), overlapObject.position.y+(upperCollisionLenght)));
-
-
+        onGround = Physics2D.OverlapCircle(groundDetection.position, circleRadius, layer);
+        onWall = Physics2D.OverlapBox(wallDetection.position,new Vector2(size/2,size),size/2,layer);
     }
     public void wallJumpCounter()
     {
@@ -116,12 +113,13 @@ public class PlayerMovement2D : MonoBehaviour
         currentScale.x *= -1;
         body.transform.localScale = currentScale;
         faceRight = !faceRight;
-        slideCollisionLenght *= -1;
     }
     void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(overlapObject.position, circleRadius);
-        Gizmos.DrawLine(overlapObject.position, new Vector2(overlapObject.position.x + (slideCollisionLenght), overlapObject.position.y+(upperCollisionLenght)));
+        Gizmos.DrawWireSphere(groundDetection.position, circleRadius);
+        Gizmos.color=Color.blue;
+        Gizmos.DrawWireCube(wallDetection.position,new Vector2(size/2,size));
+
     }
 }
