@@ -48,7 +48,7 @@ public class PlayfabManager : MonoBehaviour
         PlayFabClientAPI.LoginWithCustomID(request,OnSuccess,OnError);
     }
     void OnSuccess(LoginResult result){
-        Debug.Log("iniciaste o creaste, bien mierda");
+        Debug.Log("Login existoso");
         string name = null;
         if(result.InfoResultPayload.PlayerProfile != null){
             name = result.InfoResultPayload.PlayerProfile.DisplayName;
@@ -61,7 +61,7 @@ public class PlayfabManager : MonoBehaviour
         GetVirtualCurrency();
     }
     void OnError(PlayFabError error){
-        Debug.Log("la cagaste otra vez, piensa en cambiar tu forma de vivir por favor");
+        Debug.Log("Error de login");
         Debug.Log(error.GenerateErrorReport());
     }
     public void SubmitNameButtom(string name){
@@ -91,7 +91,7 @@ public class PlayfabManager : MonoBehaviour
         PlayFabClientAPI.UpdatePlayerStatistics(request, OnLeaderboardUpdate, OnError);
     }
     void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result){
-        Debug.Log("ahora todos pueden ver lo malo que eres, felicidades");
+        Debug.Log("Ahora tu score es publico, felicidades");
     }
     public void GetLeaderboard(){
         var request = new GetLeaderboardRequest{
@@ -99,7 +99,6 @@ public class PlayfabManager : MonoBehaviour
             StartPosition=0,
             MaxResultsCount=10
         };
-        Debug.Log("los resultadajos los jalas exitosamente, como tu pija");
         PlayFabClientAPI.GetLeaderboard(request,OnLeaderboardGet,OnError);
     }
     void OnLeaderboardGet(GetLeaderboardResult result){

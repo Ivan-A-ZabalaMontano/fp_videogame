@@ -27,7 +27,7 @@ public class FatherBlockBehaviour : Entity
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         color = Random.ColorHSV(0f, 1f, 1f, 1f, 1f, 1f);
-        rb2d.velocity=new Vector2(0,1f);
+        rb2d.velocity = new Vector2(0, 1f);
 
 
 
@@ -35,8 +35,9 @@ public class FatherBlockBehaviour : Entity
         if (canRotate)
         {
             auxRotationDelay = rotationDelay;
-            maxRotations = Random.Range(1, 20);
+            maxRotations = Random.Range(1, 5);
             Debug.Log(maxRotations);
+            rotate();
         }
 
     }
@@ -48,33 +49,18 @@ public class FatherBlockBehaviour : Entity
     }
     void FixedUpdate()
     {
-        rotate();
         capMaxVelocity();
     }
     void rotate()
     {
-        if (maxRotations > 0 && rb2d.velocity != Vector2.zero)
-        {
-            if (rotationDelay <= 0)
-            {
-                rotationPoint = new Vector3(centerBlock.position.x, centerBlock.position.y, centerBlock.position.z);
-                rotationDelay = auxRotationDelay;
-                transform.RotateAround(rotationPoint, new Vector3(0, 0, 1), 90);
-                maxRotations--;
-                rotationDelay = auxRotationDelay;
-            }
-            rotationDelay -= Time.deltaTime;
-        }
-        else if(rb2d.velocity==Vector2.zero)
-        {
-            maxRotations=0;
-        }
+        rotationPoint = new Vector3(centerBlock.position.x, centerBlock.position.y, centerBlock.position.z);
+        transform.RotateAround(rotationPoint, new Vector3(0, 0, 1), 90);
     }
     void capMaxVelocity()
     {
-        if (rb2d.velocity.y < -speed || rb2d.velocity.y>-speed)
+        if (rb2d.velocity.y < -speed || rb2d.velocity.y > -speed)
         {
-            rb2d.velocity = new Vector2(0,-speed);
+            rb2d.velocity = new Vector2(0, -speed);
         }
     }
     void setColor()

@@ -12,6 +12,7 @@ public class Player : Entity
     public bool isDead = false;
 
     private BoxCollider2D body;
+     [SerializeField] Animator playerAnimator;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +40,10 @@ public class Player : Entity
     }
     void FixedUpdate()
     {
-        movement();
+        if(!isDead)
+        {
+               movement();
+        }
         die();
     }
     //Getters && Setters
@@ -62,7 +66,7 @@ public class Player : Entity
         if (health <= 0)
         {
             isDead = true;
-            GameObject body = GameObject.Find("Body");
+            playerAnimator.SetTrigger("isDead");
         }
     }
 

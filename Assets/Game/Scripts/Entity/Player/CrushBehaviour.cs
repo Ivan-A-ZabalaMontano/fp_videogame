@@ -7,8 +7,9 @@ public class CrushBehaviour : MonoBehaviour
     [SerializeField] private LayerMask layer;
     [SerializeField] private Transform playerHead; //Objecto sobre el cual generar  la colision
     [SerializeField] private Transform playerFeet; //Objecto sobre el cual generar  la colision
-
     [SerializeField] private float angle;
+    [SerializeField] private float height;
+    [SerializeField] private float width;
 
 
     private bool headCol;
@@ -29,7 +30,7 @@ public class CrushBehaviour : MonoBehaviour
     }
     void checkCollisions()
     {
-        headCol = Physics2D.OverlapBox(playerHead.position,new Vector2(angle/2,angle),angle/2,layer);
+        headCol = Physics2D.OverlapBox(playerHead.position,new Vector2(width,height),angle/2,layer);
         feetCol = Physics2D.OverlapBox(playerFeet.position,new Vector2(angle/2,angle),angle/2,layer);
 
     }
@@ -46,7 +47,7 @@ public class CrushBehaviour : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(playerHead.position,new Vector2(angle/2,angle));
+        Gizmos.DrawWireCube(playerHead.position,new Vector2(width,height));
         Gizmos.DrawWireCube(playerFeet.position,new Vector2(angle/2,angle));
     }
 }
