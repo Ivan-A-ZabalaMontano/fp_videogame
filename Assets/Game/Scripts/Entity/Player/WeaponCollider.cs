@@ -24,5 +24,10 @@ public class WeaponCollider : MonoBehaviour
             ChildBlockBehaviour child=other.GetComponent<ChildBlockBehaviour>();
             child.onHit(10);
         }
+        else if(other.tag=="Enemy")
+        {
+            Enemy enemy=other.GetComponent<Enemy>();
+            enemy.gotHit(10);
+        }
     }
 }

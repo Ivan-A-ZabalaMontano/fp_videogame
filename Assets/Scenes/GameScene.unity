@@ -1749,7 +1749,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 233132037754016721, guid: 013702f9d8721d540bb62738789feadf, type: 3}
   m_PrefabInstance: {fileID: 1391775301}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &270809525
+--- !u!114 &270809524
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4994,7 +4994,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You've got 10 points
+  m_Text: You've got 0 points
 --- !u!222 &1161346756
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7310,7 +7310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 233132037723633096, guid: 013702f9d8721d540bb62738789feadf, type: 3}
       propertyPath: health
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 233132037723633097, guid: 013702f9d8721d540bb62738789feadf, type: 3}
       propertyPath: size
@@ -7322,7 +7322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 233132037723633097, guid: 013702f9d8721d540bb62738789feadf, type: 3}
       propertyPath: jumpForce
-      value: 100
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 233132037723633097, guid: 013702f9d8721d540bb62738789feadf, type: 3}
       propertyPath: wallForce
@@ -7384,7 +7384,8 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 10
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9012867935595744311, guid: 013702f9d8721d540bb62738789feadf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 013702f9d8721d540bb62738789feadf, type: 3}
 --- !u!1 &1398115269
 GameObject:

@@ -20,7 +20,7 @@ public class GameOverScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        finalScoreText.text="You've got "+GetComponent<HudHandler>().score+"points";
     }
 
 
@@ -34,7 +34,7 @@ public class GameOverScreen : MonoBehaviour
     }
     public void leaderboardButton()
     {
-         SceneManager.LoadScene("LeaderboardScene");
+         SceneManager.LoadScene("LeaderBoards");
     }
     public GameObject GetGameObject()
     {

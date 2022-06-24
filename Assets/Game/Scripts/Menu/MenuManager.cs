@@ -17,10 +17,11 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
     
-        play.onClick.AddListener(startGame);
+   
         skin.onClick.AddListener(skinScreen);
-        leaderboard.onClick.AddListener(quitGame);
-        exit.onClick.AddListener(quitGame);
+        leaderboard.onClick.AddListener(LeaderboardScreen);
+        exit.onClick.AddListener(quitGame);    
+          play.onClick.AddListener(startGame);
 
     }
     public void startGame()

@@ -5,37 +5,37 @@ using UnityEngine;
 public class Player : Entity
 {
     //Player Variables
-     PlayerMovement2D pmovement;
-     WeaponBehaviour weaponBehaviour;
-     private bool isJumping=false;
-     private bool isDashing=false;
-     public  bool isDead=false;
- 
+    PlayerMovement2D pmovement;
+    WeaponBehaviour weaponBehaviour;
+    private bool isJumping = false;
+    private bool isDashing = false;
+    public bool isDead = false;
+
     private BoxCollider2D body;
     // Start is called before the first frame update
     void Start()
     {
-        body= GetComponentInChildren<BoxCollider2D>();
-        pmovement=gameObject.GetComponent<PlayerMovement2D>();
-        weaponBehaviour=gameObject.GetComponentInChildren<WeaponBehaviour>();
+        body = GetComponentInChildren<BoxCollider2D>();
+        pmovement = gameObject.GetComponent<PlayerMovement2D>();
+        weaponBehaviour = gameObject.GetComponentInChildren<WeaponBehaviour>();
     }
 
     // Update is called once per frame
     void Update()
     {
-      if(Input.GetButtonDown("Jump"))
-      {
-          isJumping=true;
-      }
-      if(Input.GetButtonDown("Fire1"))
-      {
-        weaponBehaviour.attack();
-      }
-      if(Input.GetButtonDown("Fire2"))
-      {
-          isDashing=true;
-          Debug.Log("Dash");
-      }
+        if (Input.GetButtonDown("Jump"))
+        {
+            isJumping = true;
+        }
+        if (Input.GetButtonDown("Fire1"))
+        {
+            weaponBehaviour.attack();
+        }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            isDashing = true;
+            Debug.Log("Dash");
+        }
     }
     void FixedUpdate()
     {
@@ -46,26 +46,23 @@ public class Player : Entity
 
     //Behaviour
 
-        //Movement
-        void movement()
-        {
-            float horizontal= Input.GetAxisRaw("Horizontal")*this.speed*Time.fixedDeltaTime;
-            pmovement.move(horizontal,isJumping,ref isDashing);
-            isJumping=false;
-        }
+    //Movement
+    void movement()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal") * this.speed * Time.fixedDeltaTime;
+        pmovement.move(horizontal, isJumping, ref isDashing);
+        isJumping = false;
+    }
     public void gotHit(int dmg)
     {
-        health-=dmg;
+        this.health -= dmg;
     }
     public void die()
     {
-        if(health<=0)
+        if (health <= 0)
         {
-            isDead=true;
-            
-          
-                Destroy(body);
-          
+            isDead = true;
+            GameObject body = GameObject.Find("Body");
         }
     }
 
