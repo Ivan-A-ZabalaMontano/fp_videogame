@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    [SerializeField] public GameObject SlimePrefab;
+    [SerializeField] public GameObject EyePrefab;
+    public float respawnTimeSlime = 5.0f;
+    public float respawnTimeEyes = 10.0f;
+    private Vector2 screenBounds;
     // Start is called before the first frame update
     void Start()
     {
-        
+        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,Camera.main.transform.position.z)); 
+        StartCoroutine(spawnEnemySlime(respawnTimeSlime,SlimePrefab));
     }
-
+    void Update(){
+        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,Camera.main.transform.position.z));
+    }
     // Update is called once per frame
-    void Update()
-    {
-        
+    private IEnumerator spawnEnemySlime(float interval,GameObject enemy){
+        yield return new WaitForSeconds(interval);
+        GameObject newEnemy = Instantiate(enemy, new Vector3(Random.Range(-11.8f,11.2f),(screenBounds.y)+2f,0),Quaternion.identity);
+        StartCoroutine(spawnEnemySlime(interval,enemy));
     }
 }
