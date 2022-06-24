@@ -10,15 +10,19 @@ public class Player : Entity
     private bool isJumping = false;
     private bool isDashing = false;
     public bool isDead = false;
-
+    [SerializeField] public float hitTimer;
+    private float auxHitTimer;
+    private bool gotHitted = false;
     private BoxCollider2D body;
      [SerializeField] Animator playerAnimator;
     // Start is called before the first frame update
     void Start()
     {
+    
         body = GetComponentInChildren<BoxCollider2D>();
         pmovement = gameObject.GetComponent<PlayerMovement2D>();
         weaponBehaviour = gameObject.GetComponentInChildren<WeaponBehaviour>();
+        auxHitTimer = hitTimer;
     }
 
     // Update is called once per frame
@@ -37,6 +41,7 @@ public class Player : Entity
             isDashing = true;
             Debug.Log("Dash");
         }
+        resetHitbox();
     }
     void FixedUpdate()
     {
@@ -59,7 +64,22 @@ public class Player : Entity
     }
     public void gotHit(int dmg)
     {
+        gotHitted = true;
+        setColor(Color.red);
+        body = GetComponent<BoxCollider2D>();
+        body.enabled = false;
         this.health -= dmg;
+    }
+    public void resetHitbox(){
+        if(gotHitted){
+            hitTimer -= Time.deltaTime;
+        }
+        if(hitTimer <= 0){
+            hitTimer = auxHitTimer;
+            gotHitted = false;
+            body.enabled = true;
+            setColor(Color.white);
+        }
     }
     public void die()
     {
@@ -73,5 +93,12 @@ public class Player : Entity
     public bool getIsDead()
     {
         return this.isDead;
+    }
+    void setColor(Color color)
+    {
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+        {
+            sr.material.color = color;
+        }
     }
 }
