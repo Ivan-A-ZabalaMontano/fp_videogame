@@ -2311,7 +2311,7 @@ MonoBehaviour:
   SlimePrefab: {fileID: 4974935787779974797, guid: ff75e696709f03345be2658f7c3cb247, type: 3}
   EyePrefab: {fileID: 7492500486335313961, guid: ede337a522a5f024ba1f76c924c6605d, type: 3}
   respawnTimeSlime: 5
-  respawnTimeEyes: 10
+  respawnTimeEyes: 2
 --- !u!1 &771204518
 GameObject:
   m_ObjectHideFlags: 0
@@ -7911,8 +7911,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a40182cda2b5f4f90f53e667f991a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameWindow: {fileID: 0}
+  leaderboardWindow: {fileID: 0}
+  nameError: {fileID: 0}
+  nameInput: {fileID: 0}
   rowPrefab: {fileID: 0}
   rowsParent: {fileID: 0}
+  crystalsValueText: {fileID: 0}
 --- !u!82 &1756494626
 AudioSource:
   m_ObjectHideFlags: 0

@@ -134,4 +134,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   speed: 10
-  player: {fileID: 0}
+  player: {fileID: 233132037723633098, guid: 013702f9d8721d540bb62738789feadf, type: 3}

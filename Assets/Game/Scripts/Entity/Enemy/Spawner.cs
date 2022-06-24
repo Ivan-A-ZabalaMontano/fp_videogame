@@ -12,8 +12,8 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,Camera.main.transform.position.z)); 
         StartCoroutine(spawnEnemySlime(respawnTimeSlime,SlimePrefab));
+        StartCoroutine(spawnEnemySlime(respawnTimeEyes,EyePrefab));
     }
     void Update(){
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,Camera.main.transform.position.z));
@@ -23,5 +23,10 @@ public class Spawner : MonoBehaviour
         yield return new WaitForSeconds(interval);
         GameObject newEnemy = Instantiate(enemy, new Vector3(Random.Range(-11.8f,11.2f),(screenBounds.y)+2f,0),Quaternion.identity);
         StartCoroutine(spawnEnemySlime(interval,enemy));
+    }
+    private IEnumerator spawnEnemyEye(float interval,GameObject enemy){
+        yield return new WaitForSeconds(interval);
+        GameObject newEnemy = Instantiate(enemy, new Vector3(Random.Range(-screenBounds.x,screenBounds.x),Random.Range(-screenBounds.y,screenBounds.y),0),Quaternion.identity);
+        StartCoroutine(spawnEnemyEye(interval,enemy));
     }
 }

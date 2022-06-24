@@ -8,29 +8,77 @@ using UnityEngine.UI;
 
 public class PlayfabManager : MonoBehaviour
 {
+    public static PlayfabManager instance;
+
+    [Header("Windows")]
+    public GameObject nameWindow;
+    public GameObject leaderboardWindow;
+
+    [Header("Display name window")]
+    public GameObject nameError;
+    public GameObject nameInput;
+    
+    [Header("Leaderboard")]
     public GameObject rowPrefab;
     public Transform rowsParent;
+
+    [Header("UI")]
+    public Text crystalsValueText;
+
+    private string input;
     // Start is called before the first frame update
     void Start()
     {
+        nameWindow.SetActive(false);
+        leaderboardWindow.SetActive(false);
         Login();
     }
-
+    private void Awake(){
+        instance = this;
+    }
     // Update is called once per frame
     void Login(){
         var request = new LoginWithCustomIDRequest {
             CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = true
+            CreateAccount = true, 
+            InfoRequestParameters = new GetPlayerCombinedInfoRequestParams {
+                GetPlayerProfile = true
+            }
         };
         PlayFabClientAPI.LoginWithCustomID(request,OnSuccess,OnError);
     }
     void OnSuccess(LoginResult result){
         Debug.Log("iniciaste o creaste, bien mierda");
+        string name = null;
+        if(result.InfoResultPayload.PlayerProfile != null){
+            name = result.InfoResultPayload.PlayerProfile.DisplayName;
+        }
+        if (name == null){
+            nameWindow.SetActive(true);
+        }else{
+            leaderboardWindow.SetActive(true);
+        }
+        GetVirtualCurrency();
     }
     void OnError(PlayFabError error){
         Debug.Log("la cagaste otra vez, piensa en cambiar tu forma de vivir por favor");
         Debug.Log(error.GenerateErrorReport());
     }
+    public void SubmitNameButtom(string name){
+        var request = new UpdateUserTitleDisplayNameRequest{
+            DisplayName = name,
+        };
+        PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnDisplayNameUpdate, OnError);
+    }
+    void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result){
+        Debug.Log("Update display name");
+        nameWindow.SetActive(false);
+        leaderboardWindow.SetActive(true);
+    }
+    public void ReadStringInput(string message){
+        input = message;
+        SubmitNameButtom(input);
+    } 
     public void SendLeaderboard(int score){
         var request = new UpdatePlayerStatisticsRequest{
             Statistics = new List<StatisticUpdate>{
@@ -63,16 +111,21 @@ public class PlayfabManager : MonoBehaviour
             GameObject newGo = Instantiate(rowPrefab,rowsParent);
             Text[] texts = newGo.GetComponentsInChildren<Text>();
             texts[0].text = (item.Position + 1 ).ToString();
-            texts[1].text = item.PlayFabId; 
+            texts[1].text = item.DisplayName; 
             texts[2].text = item.StatValue.ToString();
         }
     }
-    #region Leaderboard
-    /*public void getLeaderboard1(){
-        var requestLeaderboard = new GetLeaderboardRequest{
-            StartPosition=0,
-            StatisticName="PlayerHighscore";
-        }
-    }*/
-    #endregion Leaderboard
+    public void GetVirtualCurrency(){
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(),OnGetUserIventorySuccess,OnError);
+    }
+    void OnGetUserIventorySuccess(GetUserInventoryResult result){
+        int crystals = result.VirtualCurrency["CR"];
+        crystalsValueText.text = crystals.ToString();
+    } 
+    public void GetApparance(){
+
+    }
+    public void SaveApearance(){
+        
+    }
 }

@@ -225,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   speed: 1
-  player: {fileID: 0}
+  player: {fileID: 233132037723633098, guid: 013702f9d8721d540bb62738789feadf, type: 3}
   groundDetection: {fileID: 4974935789382991904}
   circleRadius: 1
   layer:
